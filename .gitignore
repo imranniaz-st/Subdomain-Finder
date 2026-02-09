@@ -6,9 +6,12 @@
 *.map
 *.out
 *.obj
-
+*.txt
 # Trash
 *.bak
+*.zip
+.log
+
 thumbs.db
 *.~*
 
@@ -45,3 +48,4 @@ Backup*
 
 # IAR .dep files
 *.dep
+docs/SEO.md

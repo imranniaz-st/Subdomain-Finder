@@ -1,0 +1,7 @@
+{
+  "name": "subdomain-finder-professional",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Professional Chrome extension for subdomain discovery",
+  "license": "MIT"
+}

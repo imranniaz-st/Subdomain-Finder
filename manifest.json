@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Subdomain Finder Professional",
+  "version": "1.0.0",
+  "description": "Professional subdomain discovery using open-source methods with export options.",
+  "action": {
+    "default_title": "Subdomain Finder",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "storage",
+    "downloads"
+  ],
+  "host_permissions": [
+    "https://*/*",
+    "http://*/*",
+    "https://crt.sh/*",
+    "https://dns.google/*",
+    "https://cloudflare-dns.com/*",
+    "https://dns.bufferover.run/*"
+  ]
+}

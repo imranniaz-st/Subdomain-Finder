@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Subdomain Finder</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Subdomain Finder</p>
+        <h1>Professional Discovery</h1>
+        <p class="subtext">TO OSCP SEO NAD ALL YOU NEED.</p>
+      </div>
+    </header>
+
+    <section class="panel">
+      <form id="scan-form" class="form">
+        <label class="field">
+          <span>Target domain</span>
+          <input id="domain" type="text" placeholder="example.com" autocomplete="off" required />
+        </label>
+
+        <div class="options">
+          <div class="option-block">
+            <p class="label">Discovery methods</p>
+            <label class="check"><input type="checkbox" id="method-crt" checked /> Certificate transparency (crt.sh)</label>
+            <label class="check"><input type="checkbox" id="method-buff" checked /> Passive DNS (dns.bufferover.run)</label>
+            <label class="check"><input type="checkbox" id="method-wordlist" /> Built-in wordlist (active)</label>
+          </div>
+
+          <div class="option-block">
+            <p class="label">Validation</p>
+            <label class="check"><input type="checkbox" id="validate-dns" checked /> DNS resolution (DoH)</label>
+            <label class="check"><input type="checkbox" id="validate-http" checked /> HTTP status probe</label>
+          </div>
+
+          <div class="option-block">
+            <p class="label">Controls</p>
+            <label class="field-inline">
+              <span>Concurrency</span>
+              <input id="concurrency" type="number" min="1" max="25" value="8" />
+            </label>
+            <label class="field-inline">
+              <span>Delay (ms)</span>
+              <input id="delay" type="number" min="0" max="5000" value="150" />
+            </label>
+            <label class="field-inline">
+              <span>Timeout (ms)</span>
+              <input id="timeout" type="number" min="500" max="20000" value="4000" />
+            </label>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="start" type="submit" class="primary">Start scan</button>
+          <button id="stop" type="button" class="ghost" disabled>Stop</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel results">
+      <div class="results-head">
+        <div>
+          <p class="label">Results</p>
+          <p id="summary" class="subtext">No scan yet.</p>
+        </div>
+        <div class="export">
+          <button id="export-json" class="ghost" disabled>Export JSON</button>
+          <button id="export-csv" class="ghost" disabled>Export CSV</button>
+          <button id="copy" class="ghost" disabled>Copy</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Subdomain</th>
+              <th>DNS</th>
+              <th>HTTP</th>
+              <th>Source</th>
+            </tr>
+          </thead>
+          <tbody id="results-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>By BICODEV</p>
+      <p>Use responsibly. Passive sources only; active checks optional.</p>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
