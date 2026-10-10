@@ -4,8 +4,10 @@
   "version": "2.0.0",
   "description": "Professional subdomain discovery from free OSINT sources, page JavaScript, and network traffic.",
   "action": {
-    "default_title": "Subdomain Finder",
-    "default_popup": "popup.html"
+    "default_title": "Subdomain Finder"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
   },
   "background": {
     "service_worker": "background.js"
@@ -17,7 +19,8 @@
     "scripting",
     "webRequest",
     "debugger",
-    "activeTab"
+    "activeTab",
+    "sidePanel"
   ],
   "host_permissions": [
     "http://*/*",

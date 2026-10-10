@@ -9,6 +9,11 @@ const {
   extractHostsFromText
 } = SF;
 
+// Open the side panel when the toolbar icon is clicked (instead of a popup).
+chrome.sidePanel
+  .setPanelBehavior({ openPanelOnActionClick: true })
+  .catch(() => {});
+
 /** @type {Map<number, { apex: string, deep: boolean }>} */
 const monitoredTabs = new Map();
 

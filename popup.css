@@ -26,6 +26,11 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   margin: 0;
   font-family: "DM Sans", sans-serif;
@@ -35,8 +40,23 @@ body {
   max-width: 560px;
 }
 
+body.sidepanel {
+  min-width: 0;
+  max-width: none;
+  width: 100%;
+  overflow: hidden;
+}
+
 .app {
   padding: 14px 16px 12px;
+}
+
+body.sidepanel .app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 12px 14px 10px;
+  overflow: hidden;
 }
 
 .header {
@@ -46,6 +66,88 @@ body {
   margin-bottom: 14px;
   padding-bottom: 12px;
   border-bottom: 1px solid var(--line);
+  flex-shrink: 0;
+}
+
+body.sidepanel .sticky-top,
+body.sidepanel .sticky-controls,
+body.sidepanel .sticky-tabs {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--bg);
+}
+
+body.sidepanel .sticky-controls {
+  z-index: 3;
+  padding-bottom: 2px;
+}
+
+body.sidepanel .sticky-tabs {
+  z-index: 3;
+  margin-bottom: 10px;
+}
+
+body.sidepanel .panel-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+body.sidepanel .panel-scroll > .tab-panel.active {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0;
+}
+
+body.sidepanel .target-form {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+body.sidepanel .target-actions {
+  width: 100%;
+}
+
+body.sidepanel .target-actions .btn {
+  flex: 1;
+}
+
+body.sidepanel .source-grid,
+body.sidepanel .live-lists {
+  grid-template-columns: 1fr;
+}
+
+body.sidepanel .chip-list {
+  max-height: none;
+  flex: 1;
+  min-height: 120px;
+}
+
+body.sidepanel #panel-live.active .live-lists {
+  flex: 1;
+  min-height: 0;
+}
+
+body.sidepanel #panel-live.active .live-lists > div {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+body.sidepanel #panel-results.active .table-wrap {
+  flex: 1;
+  max-height: none;
+  min-height: 180px;
+}
+
+body.sidepanel .footer {
+  flex-shrink: 0;
+  padding-top: 10px;
 }
 
 .brand {
