@@ -14,7 +14,7 @@
 
 thumbs.db
 *.~*
-
+*hackeronstreet*
 # IAR Settings  
 **/settings/*.crun  
 **/settings/*.dbgdt  
@@ -49,3 +49,9 @@ Backup*
 # IAR .dep files
 *.dep
 docs/SEO.md
+
+# hackeronstreet (Burp extension)
+hackeronstreet/.gradle/
+hackeronstreet/build/
+hackeronstreet/*.jar
+.burp-cursor/
