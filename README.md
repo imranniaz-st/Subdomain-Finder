@@ -1,16 +1,15 @@
 # Subdomain Finder Professional
 
-A professional Chrome extension for discovering subdomains using open-source methods and export options. By BICODEV. Use responsibly.
+A Manifest V3 Chrome extension for discovering subdomains using free OSINT sources, page JavaScript analysis, and network traffic capture. By BICODEV. Use responsibly.
 
 ## Features
 
-- Passive discovery via certificate transparency (crt.sh)
-- Passive DNS discovery via dns.bufferover.run
-- Optional active wordlist expansion
-- DNS resolution validation over DoH
-- Optional HTTP status probing
-- Concurrency and rate limiting controls
-- Export to JSON/CSV and copy to clipboard
+- Passive discovery via crt.sh, BufferOver, HackerTarget, AlienVault OTX, URLScan, Wayback CDX, Anubis, ThreatMiner, Cert Spotter
+- Similar / related domain discovery (shared DNS, OTX URLs, non-apex hosts seen in page/network)
+- Live capture from page JS, DOM, Performance API, webRequest, and optional debugger response bodies
+- Optional wordlist expansion and DNS/HTTP validation
+- Filters, concurrency controls, export to JSON / CSV / TXT, clipboard copy
+- Clean light UI (white / black / blue)
 
 ## Install (Developer Mode)
 
@@ -20,44 +19,17 @@ A professional Chrome extension for discovering subdomains using open-source met
 
 ## Usage
 
-1. Enter a domain like `example.com`.
-2. Choose discovery methods and validations.
-3. Adjust concurrency, delay, and timeout.
-4. Start scan and export results.
-
-## SEO Use Cases
-
-- Discover hidden subdomains that may host content competing with or diluting rankings.
-- Find legacy or staging hosts that can create duplicate content or index bloat.
-- Identify regional or product subdomains for localization and content mapping.
-- Detect subdomains that should be consolidated or redirected for authority.
-
-## SEO Workflow (Quick Start)
-
-1. Run a passive scan first (crt.sh + passive DNS).
-2. Export results to CSV.
-3. Filter by response and DNS status.
-4. Prioritize high value subdomains for audit and redirects.
-
-For deeper guidance, see SEO documentation in [SEO_GUIDE.md](SEO_GUIDE.md).
-
-## Data Sources
-
-- https://crt.sh (Certificate Transparency search)
-- https://dns.bufferover.run (Passive DNS)
-- https://dns.google (DNS-over-HTTPS for validation)
+1. Enter a domain (or click **This tab**).
+2. Choose sources under **Sources**.
+3. Optionally open **Live capture** to monitor the active tab.
+4. Start scan, filter results, and export.
 
 ## Notes
 
-- Passive sources are used by default.
-- Active checks (DNS/HTTP) can be disabled.
+- Passive sources are free/public and may rate-limit.
+- Deep capture attaches the Chrome debugger and shows a browser warning bar.
 - HTTP probing uses `no-cors`, so some responses appear as `OPAQUE`.
-
-## Responsible Use
-
 - Only scan domains you own or are authorized to assess.
-- Passive methods are safer for SEO research and compliance.
-- Keep concurrency conservative to avoid rate limiting.
 
 ## License
 

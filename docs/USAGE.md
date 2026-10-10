@@ -2,23 +2,27 @@
 
 ## Scan Settings
 
-- Concurrency: how many checks run in parallel
-- Delay: wait time between checks
-- Timeout: per-request timeout
+- **Concurrency** — how many validation checks run in parallel
+- **Delay** — wait time between checks
+- **Timeout** — per-request timeout for OSINT and validation
 
-## Methods
+## Sources
 
-- Certificate transparency (crt.sh)
-- Passive DNS (dns.bufferover.run)
-- Wordlist expansion (active)
+Toggle free OSINT providers (crt.sh, BufferOver, HackerTarget, OTX, URLScan, Wayback, Anubis, ThreatMiner, Cert Spotter), shared/similar DNS, wordlist, and active-tab page JS / network capture.
+
+## Live capture
+
+Monitors the active tab. Enable **Deep capture** to attach the Chrome debugger and parse response bodies (browser shows a warning bar).
 
 ## Validation
 
-- DNS resolution via DoH
-- HTTP status probing
+- DNS resolution via Google DoH
+- Optional HTTP status probing (`no-cors`)
+
+## Results filters
+
+- Text filter, DNS OK, HTTP seen, hide related domains, filter by source
 
 ## Export
 
-- JSON: complete structured data
-- CSV: spreadsheet friendly
-- Copy: plain list of subdomains
+- JSON, CSV, TXT, or copy filtered hosts to the clipboard

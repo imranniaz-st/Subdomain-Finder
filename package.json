@@ -1,7 +1,7 @@
 {
   "name": "subdomain-finder-professional",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
-  "description": "Professional Chrome extension for subdomain discovery",
+  "description": "Professional Chrome extension for subdomain discovery from free OSINT, page JS, and network traffic",
   "license": "MIT"
 }

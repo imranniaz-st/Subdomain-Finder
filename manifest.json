@@ -1,22 +1,40 @@
 {
   "manifest_version": 3,
   "name": "Subdomain Finder Professional",
-  "version": "1.0.0",
-  "description": "Professional subdomain discovery using open-source methods with export options.",
+  "version": "2.0.0",
+  "description": "Professional subdomain discovery from free OSINT sources, page JavaScript, and network traffic.",
   "action": {
     "default_title": "Subdomain Finder",
     "default_popup": "popup.html"
   },
+  "background": {
+    "service_worker": "background.js"
+  },
   "permissions": [
     "storage",
-    "downloads"
+    "downloads",
+    "tabs",
+    "scripting",
+    "webRequest",
+    "debugger",
+    "activeTab"
   ],
   "host_permissions": [
-    "https://*/*",
     "http://*/*",
-    "https://crt.sh/*",
-    "https://dns.google/*",
-    "https://cloudflare-dns.com/*",
-    "https://dns.bufferover.run/*"
+    "https://*/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["shared.js", "content.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["injected.js"],
+      "matches": ["http://*/*", "https://*/*"]
+    }
   ]
 }

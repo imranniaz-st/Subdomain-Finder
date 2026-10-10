@@ -1,21 +1,26 @@
 # Data Sources
 
-This extension uses open-source and public data sources.
+This extension uses free / public data sources and local browser capture.
 
-## crt.sh
+## Passive OSINT
 
-- Certificate Transparency search
-- Passive discovery of certificate names
-- https://crt.sh
+- **crt.sh** — Certificate Transparency
+- **dns.bufferover.run** — Passive DNS
+- **HackerTarget** — Host search and shared DNS
+- **AlienVault OTX** — Passive DNS and URL lists
+- **URLScan.io** — Public scan index
+- **Wayback Machine CDX** — Historical hosts
+- **Anubis DB** — Subdomain aggregation
+- **ThreatMiner** — Domain intelligence
+- **Cert Spotter** — Certificate issuances
 
-## dns.bufferover.run
+## Browser capture (Manifest V3)
 
-- Passive DNS index
-- Returns historical DNS names
-- https://dns.bufferover.run
+- **Page / JavaScript** — DOM, inline and fetched script bodies, string extraction
+- **Network** — `webRequest`, Performance API, MAIN-world fetch/XHR/WebSocket hooks
+- **Deep capture** — Optional Chrome Debugger API for response body parsing
 
-## dns.google
+## Validation
 
-- DNS-over-HTTPS
-- Used for validation
-- https://dns.google
+- **dns.google** — DNS-over-HTTPS A-record checks
+- Optional HTTP probe (`no-cors`)

@@ -8,77 +8,135 @@
 </head>
 <body>
   <div class="app">
-    <header class="hero">
-      <div>
-        <p class="eyebrow">Subdomain Finder</p>
-        <h1>Professional Discovery</h1>
-        <p class="subtext">TO OSCP SEO NAD ALL YOU NEED.</p>
+    <header class="header">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div>
+          <h1>Subdomain Finder</h1>
+          <p class="tagline">Passive OSINT · Page JS · Network</p>
+        </div>
       </div>
+      <span class="version">v2.0</span>
     </header>
 
-    <section class="panel">
-      <form id="scan-form" class="form">
-        <label class="field">
+    <section class="target-bar">
+      <form id="scan-form" class="target-form">
+        <label class="field grow">
           <span>Target domain</span>
           <input id="domain" type="text" placeholder="example.com" autocomplete="off" required />
         </label>
-
-        <div class="options">
-          <div class="option-block">
-            <p class="label">Discovery methods</p>
-            <label class="check"><input type="checkbox" id="method-crt" checked /> Certificate transparency (crt.sh)</label>
-            <label class="check"><input type="checkbox" id="method-buff" checked /> Passive DNS (dns.bufferover.run)</label>
-            <label class="check"><input type="checkbox" id="method-wordlist" /> Built-in wordlist (active)</label>
-          </div>
-
-          <div class="option-block">
-            <p class="label">Validation</p>
-            <label class="check"><input type="checkbox" id="validate-dns" checked /> DNS resolution (DoH)</label>
-            <label class="check"><input type="checkbox" id="validate-http" checked /> HTTP status probe</label>
-          </div>
-
-          <div class="option-block">
-            <p class="label">Controls</p>
-            <label class="field-inline">
-              <span>Concurrency</span>
-              <input id="concurrency" type="number" min="1" max="25" value="8" />
-            </label>
-            <label class="field-inline">
-              <span>Delay (ms)</span>
-              <input id="delay" type="number" min="0" max="5000" value="150" />
-            </label>
-            <label class="field-inline">
-              <span>Timeout (ms)</span>
-              <input id="timeout" type="number" min="500" max="20000" value="4000" />
-            </label>
-          </div>
-        </div>
-
-        <div class="actions">
-          <button id="start" type="submit" class="primary">Start scan</button>
-          <button id="stop" type="button" class="ghost" disabled>Stop</button>
+        <div class="target-actions">
+          <button id="start" type="submit" class="btn primary">Start scan</button>
+          <button id="stop" type="button" class="btn ghost" disabled>Stop</button>
+          <button id="use-tab" type="button" class="btn ghost" title="Use active tab domain">This tab</button>
         </div>
       </form>
+      <div class="progress-wrap" id="progress-wrap" hidden>
+        <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+        <p id="status" class="status">Ready.</p>
+      </div>
     </section>
 
-    <section class="panel results">
-      <div class="results-head">
+    <nav class="tabs" role="tablist">
+      <button type="button" class="tab active" data-tab="sources" role="tab" aria-selected="true">Sources</button>
+      <button type="button" class="tab" data-tab="live" role="tab" aria-selected="false">Live capture</button>
+      <button type="button" class="tab" data-tab="results" role="tab" aria-selected="false">Results</button>
+      <button type="button" class="tab" data-tab="options" role="tab" aria-selected="false">Options</button>
+    </nav>
+
+    <section id="panel-sources" class="panel tab-panel active">
+      <div class="panel-head">
+        <p class="label">Free discovery sources</p>
+        <div class="inline-actions">
+          <button type="button" id="sources-all" class="btn link">All</button>
+          <button type="button" id="sources-none" class="btn link">None</button>
+          <button type="button" id="sources-passive" class="btn link">Passive only</button>
+        </div>
+      </div>
+      <div class="source-grid">
+        <label class="check"><input type="checkbox" id="src-crtsh" checked data-source="crtsh" data-passive="1" /> Certificate Transparency (crt.sh)</label>
+        <label class="check"><input type="checkbox" id="src-bufferover" checked data-source="bufferover" data-passive="1" /> Passive DNS (BufferOver)</label>
+        <label class="check"><input type="checkbox" id="src-hackertarget" checked data-source="hackertarget" data-passive="1" /> HackerTarget host search</label>
+        <label class="check"><input type="checkbox" id="src-alienvault" checked data-source="alienvault" data-passive="1" /> AlienVault OTX passive DNS</label>
+        <label class="check"><input type="checkbox" id="src-urlscan" checked data-source="urlscan" data-passive="1" /> URLScan.io</label>
+        <label class="check"><input type="checkbox" id="src-wayback" checked data-source="wayback" data-passive="1" /> Wayback Machine CDX</label>
+        <label class="check"><input type="checkbox" id="src-anubis" checked data-source="anubis" data-passive="1" /> Anubis DB</label>
+        <label class="check"><input type="checkbox" id="src-threatminer" checked data-source="threatminer" data-passive="1" /> ThreatMiner</label>
+        <label class="check"><input type="checkbox" id="src-certspotter" checked data-source="certspotter" data-passive="1" /> Cert Spotter</label>
+        <label class="check"><input type="checkbox" id="src-sharedDns" checked data-source="sharedDns" data-passive="1" /> Shared DNS / similar hosts</label>
+        <label class="check"><input type="checkbox" id="src-otxUrls" checked data-source="otxUrls" data-passive="1" /> OTX related URLs</label>
+        <label class="check"><input type="checkbox" id="src-wordlist" data-source="wordlist" /> Built-in wordlist (active)</label>
+        <label class="check"><input type="checkbox" id="src-pagejs" checked data-source="pagejs" /> Active tab page &amp; JavaScript</label>
+        <label class="check"><input type="checkbox" id="src-network" checked data-source="network" /> Active tab network traffic</label>
+      </div>
+    </section>
+
+    <section id="panel-live" class="panel tab-panel">
+      <div class="panel-head">
+        <p class="label">Live page &amp; network capture</p>
+      </div>
+      <p class="help">Monitors the active tab for hosts in JavaScript, DOM, Performance entries, and webRequest traffic. Optional debugger reads response bodies.</p>
+      <div class="live-controls">
+        <label class="check"><input type="checkbox" id="live-deep" /> Deep capture (Chrome debugger / response bodies)</label>
+        <div class="inline-actions">
+          <button type="button" id="live-start" class="btn primary">Start monitoring</button>
+          <button type="button" id="live-stop" class="btn ghost" disabled>Stop</button>
+          <button type="button" id="live-clear" class="btn ghost">Clear</button>
+          <button type="button" id="live-merge" class="btn ghost">Merge into results</button>
+        </div>
+      </div>
+      <div class="live-stats">
+        <div class="stat"><span id="live-sub-count">0</span><label>Subdomains</label></div>
+        <div class="stat"><span id="live-rel-count">0</span><label>Related</label></div>
+        <div class="stat"><span id="live-status">Idle</span><label>Status</label></div>
+      </div>
+      <div class="live-lists">
+        <div>
+          <p class="label">Captured subdomains</p>
+          <ul id="live-sub-list" class="chip-list"></ul>
+        </div>
+        <div>
+          <p class="label">Related / similar domains</p>
+          <ul id="live-rel-list" class="chip-list"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="panel-results" class="panel tab-panel">
+      <div class="panel-head">
         <div>
           <p class="label">Results</p>
-          <p id="summary" class="subtext">No scan yet.</p>
+          <p id="summary" class="help">No scan yet.</p>
         </div>
         <div class="export">
-          <button id="export-json" class="ghost" disabled>Export JSON</button>
-          <button id="export-csv" class="ghost" disabled>Export CSV</button>
-          <button id="copy" class="ghost" disabled>Copy</button>
+          <button id="export-json" class="btn ghost" disabled>JSON</button>
+          <button id="export-csv" class="btn ghost" disabled>CSV</button>
+          <button id="export-txt" class="btn ghost" disabled>TXT</button>
+          <button id="copy" class="btn ghost" disabled>Copy</button>
         </div>
+      </div>
+
+      <div class="filters">
+        <label class="field grow">
+          <span>Filter</span>
+          <input id="filter-text" type="text" placeholder="Filter subdomains…" autocomplete="off" />
+        </label>
+        <label class="check tight"><input type="checkbox" id="filter-dns" /> DNS OK</label>
+        <label class="check tight"><input type="checkbox" id="filter-http" /> HTTP seen</label>
+        <label class="check tight"><input type="checkbox" id="filter-hide-related" checked /> Hide related</label>
+        <label class="field">
+          <span>Source</span>
+          <select id="filter-source">
+            <option value="">All sources</option>
+          </select>
+        </label>
       </div>
 
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th>Subdomain</th>
+              <th>Host</th>
               <th>DNS</th>
               <th>HTTP</th>
               <th>Source</th>
@@ -89,12 +147,44 @@
       </div>
     </section>
 
+    <section id="panel-options" class="panel tab-panel">
+      <div class="options-grid">
+        <div class="option-block">
+          <p class="label">Validation</p>
+          <label class="check"><input type="checkbox" id="validate-dns" checked /> DNS resolution (Google DoH)</label>
+          <label class="check"><input type="checkbox" id="validate-http" /> HTTP probe (no-cors)</label>
+          <label class="check"><input type="checkbox" id="include-related" checked /> Keep similar / related domains</label>
+        </div>
+        <div class="option-block">
+          <p class="label">Scan controls</p>
+          <label class="field-inline">
+            <span>Concurrency</span>
+            <input id="concurrency" type="number" min="1" max="25" value="8" />
+          </label>
+          <label class="field-inline">
+            <span>Delay (ms)</span>
+            <input id="delay" type="number" min="0" max="5000" value="100" />
+          </label>
+          <label class="field-inline">
+            <span>Timeout (ms)</span>
+            <input id="timeout" type="number" min="500" max="30000" value="8000" />
+          </label>
+        </div>
+        <div class="option-block">
+          <p class="label">Display</p>
+          <label class="check"><input type="checkbox" id="auto-results-tab" checked /> Switch to Results when scan finishes</label>
+          <label class="check"><input type="checkbox" id="sort-alpha" checked /> Sort alphabetically</label>
+        </div>
+      </div>
+    </section>
+
     <footer class="footer">
-      <p>By BICODEV</p>
-      <p>Use responsibly. Passive sources only; active checks optional.</p>
+      <p>By BICODEV · Use only on domains you are authorized to assess.</p>
     </footer>
   </div>
 
+  <script src="shared.js"></script>
+  <script src="sources.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>
